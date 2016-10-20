@@ -1,0 +1,3 @@
+rootProject.name = 'rn_d3_art_charts'
+
+include ':app'
