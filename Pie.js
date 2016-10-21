@@ -44,15 +44,6 @@ type Props = {
   onItemSelected: any
 };
 
-const data = [
-  {"number":  4, "name": 'Locke'},
-  {"number":  8, "name": 'Reyes'},
-  {"number": 15, "name": 'Ford'},
-  {"number": 16, "name": 'Jarrah'},
-  {"number": 23, "name": 'Shephard'},
-  {"number": 42, "name": 'Kwon'}
-];
-
 const MARGIN = 25;
 
 type State = {
@@ -89,7 +80,7 @@ export default class Pie extends React.Component {
 
     var arcs = d3.shape.pie()
         .value(this._value)
-        (data);
+        (this.props.data);
 
     // console.debug('arcs: ' + JSON.stringify(arcs));
 
@@ -150,13 +141,13 @@ export default class Pie extends React.Component {
         </Surface>
         <View style={{position: 'absolute', top:MARGIN, left:2*MARGIN + this.props.width}}>
           {
-            data.map( (item, index) =>
+            this.props.data.map( (item, index) =>
             {
               var fontWeight = this.state.highlightedIndex == index ? 'bold' : 'normal';
               return (
                 <TouchableWithoutFeedback key={index} onPress={() => this._onPieItemSelected(index)}>
                   <View>
-                    <Text style={{color: this._color(index), fontSize: 15, marginTop: 5, fontWeight: fontWeight}}>{this._label(item)}: {this._value(item)}</Text>
+                    <Text style={{color: this._color(index), fontSize: 15, marginTop: 5, fontWeight: fontWeight}}>{this._label(item)}: {this._value(item)}%</Text>
                   </View>
                 </TouchableWithoutFeedback>
               );

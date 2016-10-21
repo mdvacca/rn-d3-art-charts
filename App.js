@@ -156,15 +156,15 @@ export default class chart extends Component {
 
         <View style={{height: 21, backgroundColor:'white'}} />
 
-          <Text style={{height: 20, backgroundColor:'white'}}>Pie</Text>
+          <Text style={styles.chart_title}>% of spendings this month</Text>
 
-          <Pie width={150} height={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} containerWidth={width} containerHeight={charHeight}/>
+          <Pie width={150} height={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} containerWidth={width} containerHeight={charHeight} data={data.spendingsLastMonth} />
 
-          <Text style={{height: 20, backgroundColor:'white'}}>BarChart</Text>
+          <Text style={styles.chart_title}>Spending per year</Text>
 
-          <BarChart width={150} height={200} color={Theme.colors[this.state.activeIndex]} containerWidth={width} containerHeight={charHeight}/>
+          <BarChart width={width} height={height} data={data.spendingsPerYear} color={Theme.colors[this.state.activeIndex]} />
 
-          <View style={{height: 20, backgroundColor:'white'}} />
+          <Text style={styles.chart_title}>Happines per year</Text>
 
           <Surface width={width} height={500}>
             <Group x={0} y={0}>
@@ -180,5 +180,16 @@ export default class chart extends Component {
     );
 
     //d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
+  }
+}
+
+const styles = {
+  chart_title : {
+    paddingTop: 10,
+    paddingBottom: 5,
+    paddingLeft: 5,
+    backgroundColor:'white',
+    color: 'dimgrey',
+    fontWeight:'bold',
   }
 }

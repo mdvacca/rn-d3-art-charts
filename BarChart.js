@@ -42,36 +42,9 @@ import {
 type Props = {
   height: number,
   width: number,
-  containerWidth: number,
-  containerHeight: number,
   color: any,
+  data: any
 };
-
-var data = [
-  {date: new Date(2007, 3, 24), value: 3.24},
-  {date: new Date(2007, 3, 25), value: 10.35},
-  {date: new Date(2007, 3, 26), value: 10.84},
-  {date: new Date(2007, 3, 27), value: 9.92},
-  {date: new Date(2007, 3, 30), value: 65.80},
-  {date: new Date(2007, 4,  1), value: 19.47},
-  {date: new Date(2007, 3, 24), value: 30.24},
-  {date: new Date(2007, 3, 25), value: 10.35},
-  {date: new Date(2007, 3, 26), value: 10.84},
-  {date: new Date(2007, 3, 27), value: 19.92},
-  {date: new Date(2007, 3, 30), value: 80.80},
-  {date: new Date(2007, 4,  1), value: 19.47},
-  {date: new Date(2007, 3, 24), value: 34.24},
-  {date: new Date(2007, 3, 25), value: 65.35},
-  {date: new Date(2007, 3, 26), value: 45.84},
-  {date: new Date(2007, 3, 27), value: 60.92},
-  {date: new Date(2007, 3, 30), value: 21.80},
-  {date: new Date(2007, 4,  1), value: 19.47},
-  {date: new Date(2007, 3, 24), value: 3.24},
-  {date: new Date(2007, 3, 25), value: 10.35},
-  {date: new Date(2007, 3, 26), value: 20.84},
-  {date: new Date(2007, 3, 27), value: 60.92},
-  {date: new Date(2007, 3, 30), value: 80.80},
-];
 
 const MARGIN = 25;
 
@@ -93,7 +66,7 @@ export default class BarChart extends React.Component {
     var area = d3.shape.area()
         .x(function(d, index) { return index*15; })
         .y1(function(d) { return -d.value; })
-        (this._shuffle(data));
+        (this._shuffle(this.props.data));
 
     console.debug('area: ' + JSON.stringify(area));
 
@@ -110,12 +83,12 @@ export default class BarChart extends React.Component {
 
   render() {
     const x = MARGIN;
-    const y = this.props.containerHeight - MARGIN;
+    const y = this.props.height - MARGIN;
     const barChart = this._createBarChart()
     console.log(`createBarChart ${JSON.stringify(barChart)}`);
     return (
-      <View width={this.props.containerWidth} height={this.props.containerHeight}>
-        <Surface width={this.props.containerWidth} height={this.props.containerHeight}>
+      <View width={this.props.width} height={this.props.height}>
+        <Surface width={this.props.width} height={this.props.height}>
            <Group x={x} y={y}>
              <Shape
                d={barChart}
