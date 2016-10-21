@@ -38,8 +38,8 @@ import {
 type Props = {
   height: number,
   width: number,
-  containerWidth: number,
-  containerHeight: number,
+  pieWidth: number,
+  pieHeight: number,
   colors: any,
   onItemSelected: any
 };
@@ -82,21 +82,18 @@ export default class Pie extends React.Component {
         .value(this._value)
         (this.props.data);
 
-    // console.debug('arcs: ' + JSON.stringify(arcs));
-
     var that = this;
     var hightlightedArc = d3.shape.arc()
-      .outerRadius(this.props.width/2 + 10)
+      .outerRadius(this.props.pieWidth/2 + 10)
       .padAngle(.05)
       .innerRadius(30);
 
     var arc = d3.shape.arc()
-      .outerRadius(this.props.width/2)
+      .outerRadius(this.props.pieWidth/2)
       .padAngle(.05)
       .innerRadius(30);
 
     return {
-      //paths: arcs.map( function(a, index) { var path = arc(a); return { path , color: that._color(index) }; } )
       paths: arcs.map( (a, index) => {
         var path; // = arc(a);
         if (this.state.highlightedIndex == index) {
@@ -119,13 +116,13 @@ export default class Pie extends React.Component {
   }
 
   render() {
-    const x = this.props.width / 2 + MARGIN;
-    const y = this.props.height / 2 + MARGIN;
+    const x = this.props.pieWidth / 2 + MARGIN;
+    const y = this.props.pieHeight / 2 + MARGIN;
     const pieChart = this._createPieChart()
 
     return (
-      <View width={this.props.containerWidth} height={this.props.containerHeight}>
-        <Surface width={this.props.containerWidth} height={this.props.containerHeight}>
+      <View width={this.props.width} height={this.props.height}>
+        <Surface width={this.props.width} height={this.props.height}>
            <Group x={x} y={y}>
            {
               pieChart.paths.map( (item, index) =>
@@ -139,7 +136,7 @@ export default class Pie extends React.Component {
             }
            </Group>
         </Surface>
-        <View style={{position: 'absolute', top:MARGIN, left:2*MARGIN + this.props.width}}>
+        <View style={{position: 'absolute', top:MARGIN, left:2*MARGIN + this.props.pieWidth}}>
           {
             this.props.data.map( (item, index) =>
             {

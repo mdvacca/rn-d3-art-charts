@@ -158,7 +158,7 @@ export default class chart extends Component {
 
           <Text style={styles.chart_title}>% of spendings this month</Text>
 
-          <Pie width={150} height={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} containerWidth={width} containerHeight={charHeight} data={data.spendingsLastMonth} />
+          <Pie pieWidth={150} pieHeight={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} width={width} height={charHeight} data={data.spendingsLastMonth} />
 
           <Text style={styles.chart_title}>Spending per year</Text>
 
