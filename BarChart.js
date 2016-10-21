@@ -44,6 +44,7 @@ type Props = {
   width: number,
   containerWidth: number,
   containerHeight: number,
+  color: any,
 };
 
 var data = [
@@ -81,24 +82,30 @@ export default class BarChart extends React.Component {
     this._createBarChart = this._createBarChart.bind(this);
     this._value = this._value.bind(this);
     this._label = this._label.bind(this);
-    this._color = this._color.bind(this);
+    this._shuffle = this._shuffle.bind(this);
   }
 
   _value(item) { return item.number; }
 
   _label(item) { return item.name; }
 
-  _color(index) { return Theme.colors[index]; }
-
   _createBarChart() {
     var area = d3.shape.area()
         .x(function(d, index) { return index*15; })
         .y1(function(d) { return -d.value; })
-        (data);
+        (this._shuffle(data));
 
     console.debug('area: ' + JSON.stringify(area));
 
     return area;
+  }
+
+  _shuffle(a) {
+      for (let i = a.length; i; i--) {
+          let j = Math.floor(Math.random() * i);
+          [a[i - 1], a[j]] = [a[j], a[i - 1]];
+      }
+      return a;
   }
 
   render() {
@@ -120,6 +127,4 @@ export default class BarChart extends React.Component {
       </View>
     );
   }
-  //stroke={Theme.colors[2]}
-  //fill={Theme.colors[2]}
 }

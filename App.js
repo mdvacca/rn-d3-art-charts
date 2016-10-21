@@ -123,7 +123,25 @@ export function createLineGraph(
 const charWidth = Dimensions.get('window').width;
 const charHeight = 200;
 
+type State = {
+  activeIndex: number
+}
+
 export default class chart extends Component {
+
+  state: State;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeIndex: 0,
+    };
+    this._onPieItemSelected = this._onPieItemSelected.bind(this);
+  }
+
+  _onPieItemSelected(newIndex){
+    this.setState({...this.state, activeIndex: newIndex});
+  }
 
   render() {
     const height = charHeight;
@@ -140,11 +158,11 @@ export default class chart extends Component {
 
           <Text style={{height: 20, backgroundColor:'white'}}>Pie</Text>
 
-          <Pie width={150} height={150} containerWidth={width} containerHeight={charHeight}/>
+          <Pie width={150} height={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} containerWidth={width} containerHeight={charHeight}/>
 
           <Text style={{height: 20, backgroundColor:'white'}}>BarChart</Text>
 
-          <BarChart width={150} height={200} color={Theme.colors[0]} containerWidth={width} containerHeight={charHeight}/>
+          <BarChart width={150} height={200} color={Theme.colors[this.state.activeIndex]} containerWidth={width} containerHeight={charHeight}/>
 
           <View style={{height: 20, backgroundColor:'white'}} />
 

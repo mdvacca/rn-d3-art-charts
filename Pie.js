@@ -40,6 +40,8 @@ type Props = {
   width: number,
   containerWidth: number,
   containerHeight: number,
+  colors: any,
+  onItemSelected: any
 };
 
 const data = [
@@ -67,6 +69,7 @@ export default class Pie extends React.Component {
     this._value = this._value.bind(this);
     this._label = this._label.bind(this);
     this._color = this._color.bind(this);
+    this._onPieItemSelected = this._onPieItemSelected.bind(this);
   }
 
   componentWilUpdate() {
@@ -119,6 +122,11 @@ export default class Pie extends React.Component {
     };
   }
 
+  _onPieItemSelected(index) {
+    this.setState({...this.state, highlightedIndex: index});
+    this.props.onItemSelected(index);
+  }
+
   render() {
     const x = this.props.width / 2 + MARGIN;
     const y = this.props.height / 2 + MARGIN;
@@ -146,7 +154,7 @@ export default class Pie extends React.Component {
             {
               var fontWeight = this.state.highlightedIndex == index ? 'bold' : 'normal';
               return (
-                <TouchableWithoutFeedback key={'pie_label_' + index} onPress={() => { this.setState({...this.state, highlightedIndex: index});} }>
+                <TouchableWithoutFeedback key={index} onPress={() => this._onPieItemSelected(index)}>
                   <View>
                     <Text style={{color: this._color(index), fontSize: 15, marginTop: 5, fontWeight: fontWeight}}>{this._label(item)}: {this._value(item)}</Text>
                   </View>
