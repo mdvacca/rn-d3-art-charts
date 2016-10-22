@@ -135,12 +135,22 @@ export default class chart extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
+      spendingsPerYear: data.spendingsPerYear,
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
+    this._shuffle = this._shuffle.bind(this);
   }
 
   _onPieItemSelected(newIndex){
-    this.setState({...this.state, activeIndex: newIndex});
+    this.setState({...this.state, activeIndex: newIndex, spendingsPerYear: this._shuffle(data.spendingsPerYear)});
+  }
+
+  _shuffle(a) {
+      for (let i = a.length; i; i--) {
+          let j = Math.floor(Math.random() * i);
+          [a[i - 1], a[j]] = [a[j], a[i - 1]];
+      }
+      return a;
   }
 
   render() {
@@ -162,7 +172,7 @@ export default class chart extends Component {
 
           <Text style={styles.chart_title}>Spending per year</Text>
 
-          <BarChart width={width} height={height} data={data.spendingsPerYear} color={Theme.colors[this.state.activeIndex]} />
+          <BarChart width={width} height={height} data={this.state.spendingsPerYear} color={Theme.colors[this.state.activeIndex]} />
 
           <Text style={styles.chart_title}>Happines per year</Text>
 

@@ -94,6 +94,7 @@ export default class Pie extends React.Component {
       .innerRadius(30);
 
     return {
+      //paths: arcs.map( function(a, index) { var path = arc(a); return { path , color: that._color(index) }; } )
       paths: arcs.map( (a, index) => {
         var path; // = arc(a);
         if (this.state.highlightedIndex == index) {
