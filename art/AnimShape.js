@@ -28,8 +28,6 @@ import * as format from 'd3-format';
 import * as d3Array from 'd3-array';
 import * as axis from 'd3-axis';
 
-import Theme from './Theme';
-
 const d3 = {
   scale,
   shape,
