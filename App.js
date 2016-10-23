@@ -53,7 +53,7 @@ export default class App extends Component {
     return (
       <ScrollView>
         <View style={styles.container} >
-          <Text style={styles.chart_title}>% of spendings this month</Text>
+          <Text style={styles.chart_title}>Distribution of spending this month</Text>
           <Pie
             pieWidth={150}
             pieHeight={150}
@@ -76,15 +76,17 @@ export default class App extends Component {
 
 const styles = {
   container: {
-    backgroundColor:'aliceblue',
+    backgroundColor:'whitesmoke',
     marginTop: 21,
   },
   chart_title : {
-    paddingTop: 10,
+    paddingTop: 15,
+    textAlign: 'center',
     paddingBottom: 5,
     paddingLeft: 5,
+    fontSize: 18,
     backgroundColor:'white',
-    color: 'dimgrey',
+    color: 'grey',
     fontWeight:'bold',
   }
 }
