@@ -63,10 +63,10 @@ export default {
 
   spendingsLastMonth: [
     {"number":  4, "name": 'Movies'},
-    {"number":  8, "name": 'Misc'},
-    {"number": 15, "name": 'Dog'},
+    {"number": 7, "name": 'Dog'},
     {"number": 16, "name": 'Food'},
     {"number": 23, "name": 'Car'},
-    {"number": 42, "name": 'Rent'}
+    {"number": 42, "name": 'Rent'},
+    {"number":  8, "name": 'Misc'},
   ],
 };

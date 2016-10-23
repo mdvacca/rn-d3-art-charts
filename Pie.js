@@ -22,7 +22,7 @@ const {
 import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 import * as d3Array from 'd3-array';
-
+import AnimShape from './AnimShape';
 import Theme from './Theme';
 
 const d3 = {
@@ -76,7 +76,7 @@ export default class Pie extends React.Component {
 
   _color(index) { return Theme.colors[index]; }
 
-  _createPieChart() {
+  _createPieChart(index) {
 
     var arcs = d3.shape.pie()
         .value(this._value)
@@ -93,22 +93,20 @@ export default class Pie extends React.Component {
       .padAngle(.05)
       .innerRadius(30);
 
-    return {
-      //paths: arcs.map( function(a, index) { var path = arc(a); return { path , color: that._color(index) }; } )
-      paths: arcs.map( (a, index) => {
-        var path; // = arc(a);
-        if (this.state.highlightedIndex == index) {
-          path = hightlightedArc(a);
-        } else {
-          path = arc(a);
-        }
+    var a = arcs[index];
+      var path; // = arc(a);
+      if (this.state.highlightedIndex == index) {
+        path = hightlightedArc(a);
+      } else {
+        path = arc(a);
+      }
 
-        return {
-          path,
-          color: that._color(index),
-          };
-      })
-    };
+      var result = {
+        path,
+        color: that._color(index),
+      };
+    console.log(`returning data: ${JSON.stringify(result)}`)
+      return result
   }
 
   _onPieItemSelected(index) {
@@ -119,20 +117,19 @@ export default class Pie extends React.Component {
   render() {
     const x = this.props.pieWidth / 2 + MARGIN;
     const y = this.props.pieHeight / 2 + MARGIN;
-    const pieChart = this._createPieChart()
+//    const pieChart = this._createPieChart()
 
     return (
       <View width={this.props.width} height={this.props.height}>
         <Surface width={this.props.width} height={this.props.height}>
            <Group x={x} y={y}>
            {
-              pieChart.paths.map( (item, index) =>
-                (<Shape
-                   key={'pie_shape_' + index}
-                   fill={item.color}
-                   stroke={item.color}
-                   d={item.path}
-                />)
+              this.props.data.map( (item, index) =>
+              (<AnimShape
+                 key={'pie_shape_' + index}
+                 color={this._color(index)}
+                 createBarChart={ () => this._createPieChart(index)}
+              />)
               )
             }
            </Group>
@@ -156,3 +153,11 @@ export default class Pie extends React.Component {
     );
   }
 }
+
+
+// (<Shape
+//    key={'pie_shape_' + index}
+//    fill={item.color}
+//    stroke={item.color}
+//    d={item.path}
+// />)
