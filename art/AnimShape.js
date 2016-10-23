@@ -3,53 +3,27 @@
 
 import React from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
   ART,
-  Dimensions,
   LayoutAnimation,
 } from 'react-native';
 
 const {
-  Surface,
-  Group,
-  Rectangle,
-  ClippingRectangle,
-  LinearGradient,
   Shape,
 } = ART;
 
 import Morph from 'art/morph/path';
 
-import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
-import * as format from 'd3-format';
-import * as d3Array from 'd3-array';
-import * as axis from 'd3-axis';
 
 const d3 = {
-  scale,
   shape,
-  format,
-  axis,
 };
-
-import {
-    scaleBand,
-    scaleLinear
-} from 'd3-scale';
 
 type Props = {
-  height: number,
-  width: number,
   color: any,
-  data: any
+  createPath: () => any,
 };
 
-const MARGIN = 20;
-const PaddingSize = 20;
-const TickWidth = PaddingSize * 2;
 const AnimationDurationMs = 250;
 
 export default class AnimShape extends React.Component {
@@ -57,7 +31,7 @@ export default class AnimShape extends React.Component {
   constructor(props: Props) {
     super(props);
     this.state = {
-      linePath: '',
+      path: '',
     }
   }
 
@@ -71,30 +45,26 @@ export default class AnimShape extends React.Component {
 
   computeNextState(nextProps) {
     const {
-      data,
-      width,
-      height,
-      xAccessor,
-      yAccessor,
+      createPath,
     } = nextProps;
 
-    const lineGraph = this.props.createBarChart();
+    const graph = this.props.createPath();
 
     this.setState({
-      linePath: lineGraph.path,
+      path: graph.path,
     });
 
     // The first time this function is hit we need to set the initial
     // this.previousGraph value.
     if (!this.previousGraph) {
-      this.previousGraph = lineGraph;
+      this.previousGraph = graph;
     }
 
     // Only animate if our properties change. Typically this is when our
     // yAccessor function changes.
     if (this.props !== nextProps) {
       const pathFrom = this.previousGraph.path;
-      const pathTo = lineGraph.path;
+      const pathTo = graph.path;
 
       cancelAnimationFrame(this.animating);
       this.animating = null;
@@ -113,7 +83,7 @@ export default class AnimShape extends React.Component {
 
       this.setState({
         // Create the ART Morph.Tween instance.
-        linePath: Morph.Tween( // eslint-disable-line new-cap
+        path: Morph.Tween( // eslint-disable-line new-cap
           pathFrom,
           pathTo,
         ),
@@ -122,7 +92,7 @@ export default class AnimShape extends React.Component {
         this.animate();
       });
 
-      this.previousGraph = lineGraph;
+      this.previousGraph = graph;
     }
   }
 
@@ -142,7 +112,7 @@ export default class AnimShape extends React.Component {
         this.animating = null;
         // Just to be safe set our final value to the new graph path.
         this.setState({
-          linePath: this.previousGraph.path,
+          path: this.previousGraph.path,
         });
 
         // Stop our animation loop.
@@ -150,7 +120,7 @@ export default class AnimShape extends React.Component {
       }
 
       // Tween the SVG path value according to what delta we're currently at.
-      this.state.linePath.tween(delta);
+      this.state.path.tween(delta);
 
       this.setState(this.state, () => {
         this.animate(start);
@@ -158,15 +128,14 @@ export default class AnimShape extends React.Component {
     });
   }
 
-
   render() {
-    const barChart = this.state.linePath;
+    const path = this.state.path;
     return (
        <Shape
-         d={barChart}
+         d={path}
          stroke={this.props.color}
          fill={this.props.color}
-         strokeWidth={2} />
+         />
     );
   }
 }

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 
@@ -19,7 +20,7 @@ type State = {
   spendingsPerYear: any
 }
 
-export default class chart extends Component {
+export default class App extends Component {
 
   state: State;
 
