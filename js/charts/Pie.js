@@ -23,7 +23,7 @@ import * as scale from 'd3-scale';
 import * as shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 import AnimShape from '../art/AnimShape';
-import Theme from '../Theme';
+import Theme from '../theme';
 
 const d3 = {
   scale,

@@ -10,9 +10,9 @@ import {
   View,
 } from 'react-native';
 
-import AreaSpline from './charts/AreaSpline';
-import Pie from './charts/Pie';
-import Theme from './Theme';
+import AreaSpline from './js/charts/AreaSpline';
+import Pie from './js/charts/Pie';
+import Theme from './js/theme';
 import data from './data';
 
 type State = {
