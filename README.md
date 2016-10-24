@@ -8,6 +8,6 @@ This is an sample project for the post https://medium.com/p/21cd9ccf6c58 that sh
 ## How to use it:
 
 ```
-npm install
-react-native run-ios
+> npm install
+> react-native run-ios
 ```
