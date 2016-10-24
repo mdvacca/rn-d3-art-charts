@@ -13,7 +13,7 @@ import {
 import AreaSpline from './js/charts/AreaSpline';
 import Pie from './js/charts/Pie';
 import Theme from './js/theme';
-import data from './data';
+import data from './resources/data';
 
 type State = {
   activeIndex: number,
