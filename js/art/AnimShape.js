@@ -43,6 +43,7 @@ export default class AnimShape extends React.Component {
     this.computeNextState(nextProps);
   }
 
+  // Animations based on: https://github.com/hswolff/BetterWeather
   computeNextState(nextProps) {
     const {
       d,
