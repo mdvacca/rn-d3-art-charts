@@ -21,7 +21,7 @@ const d3 = {
 
 type Props = {
   color: any,
-  createPath: () => any,
+  d: () => any,
 };
 
 const AnimationDurationMs = 250;
@@ -45,10 +45,10 @@ export default class AnimShape extends React.Component {
 
   computeNextState(nextProps) {
     const {
-      createPath,
+      d,
     } = nextProps;
 
-    const graph = this.props.createPath();
+    const graph = this.props.d();
 
     this.setState({
       path: graph.path,

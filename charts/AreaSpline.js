@@ -90,7 +90,7 @@ class AreaSpline extends React.Component {
            <Group x={x} y={y}>
              <AnimShape
                color={this.props.color}
-               createPath={() => this._createArea()}
+               d={() => this._createArea()}
                 />
            </Group>
         </Surface>

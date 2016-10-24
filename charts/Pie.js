@@ -114,7 +114,7 @@ class Pie extends React.Component {
               (<AnimShape
                  key={'pie_shape_' + index}
                  color={this._color(index)}
-                 createPath={ () => this._createPieChart(index)}
+                 d={ () => this._createPieChart(index)}
               />)
               )
             }
